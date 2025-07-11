@@ -1,42 +1,15 @@
-# ✨ So you want to run an audit
-
-This `README.md` contains a set of checklists for our audit collaboration. This is your audit repo, which is used for scoping your audit and for providing information to wardens
-
-Some of the checklists in this doc are for our scouts and some of them are for **you as the audit sponsor (⭐️)**.
-
----
-
-# Repo setup
-
-## ⭐️ Sponsor: Add code to this repo
-
-- [ ] Create a PR to this repo with the below changes:
-- [ ] Confirm that this repo is a self-contained repository with working commands that will build (at least) all in-scope contracts, and commands that will run tests producing gas reports for the relevant contracts.
-- [ ] Please have final versions of contracts and documentation added/updated in this repo **no less than 48 business hours prior to audit start time.**
-- [ ] Be prepared for a 🚨code freeze🚨 for the duration of the audit — important because it establishes a level playing field. We want to ensure everyone's looking at the same code, no matter when they look during the audit. (Note: this includes your own repo, since a PR can leak alpha to our wardens!)
-
-## ⭐️ Sponsor: Repo checklist
-
-- [ ] Modify the [Overview](#overview) section of this `README.md` file. Describe how your code is supposed to work with links to any relevant documentation and any other criteria/details that the auditors should keep in mind when reviewing. (Here are two well-constructed examples: [Ajna Protocol](https://github.com/code-423n4/2023-05-ajna) and [Maia DAO Ecosystem](https://github.com/code-423n4/2023-05-maia))
-- [ ] Optional: pre-record a high-level overview of your protocol (not just specific smart contract functions). This saves wardens a lot of time wading through documentation.
-- [ ] Review and confirm the details created by the Scout (technical reviewer) who was assigned to your contest. *Note: any files not listed as "in scope" will be considered out of scope for the purposes of judging, even if the file will be part of the deployed contracts.*  
-
----
-
 # Lido Finance audit details
-- Total Prize Pool: $103500 in USDC
-  - HM awards: up to XXX XXX USDC (Notion: HM (main) pool)
+- Total Prize Pool: $103,500 in USDC
+  - HM awards: up to $96,000 in USDC
     - If no valid Highs or Mediums are found, the HM pool is $0 
-  - QA awards: $4000 in USDC
-  - Judge awards: $3000 in USDC
+  - QA awards: $4,000 in USDC
+  - Judge awards: $3,000 in USDC
   - Scout awards: $500 in USDC
-  - (this line can be removed if there is no mitigation) Mitigation Review: XXX XXX USDC
 - [Read our guidelines for more details](https://docs.code4rena.com/competitions)
-- Starts XXX XXX XX 20:00 UTC (ex. `Starts March 22, 2023 20:00 UTC`)
-- Ends XXX XXX XX 20:00 UTC (ex. `Ends March 30, 2023 20:00 UTC`)
+- Starts July 16, 2025 20:00 UTC 
+- Ends August 11, 2025 20:00 UTC 
 
 **❗ Important notes for wardens** 
-## 🐺 C4 staff: delete the PoC requirement section if not applicable - i.e. for non-Solidity/EVM audits.
 1. A coded, runnable PoC is required for all High/Medium submissions to this audit. 
   - This repo includes a basic template to run the test suite.
   - PoCs must use the test suite provided in this repo.
@@ -52,10 +25,131 @@ Some of the checklists in this doc are for our scouts and some of them are for *
 The 4naly3er report can be found [here](https://github.com/code-423n4/2025-07-lido-finance/blob/main/4naly3er-report.md).
 
 _Note for C4 wardens: Anything included in this `Automated Findings / Publicly Known Issues` section is considered a publicly known issue and is ineligible for awards._
-## 🐺 C4: Begin Gist paste here (and delete this line)
 
+- It is assumed that all of the roles in the contracts are assigned correctly concerning the permissions granted;
+- It is assumed that ElRewardsStealing penalty is reported timely before Node Operators exit their validators and claim back bond tokens;
+- It is assumed that Oracles deliver valid Merkle Trees for rewards distribution and strikes;
+- Bond tokens are stored in the form of stETH. Hence, it is assumed that Node Operators accept all of the risks associated with stETH holding;
 
+More on the Known Issues and Security Considerations here - https://hackmd.io/@lido/csm-v2-spec#Security-considerations
 
+✅ SCOUTS: Please format the response above 👆 so its not a wall of text and its readable.
+
+# Overview
+
+[ ⭐️ SPONSORS: add info here ]
+
+## Links
+
+- **Previous audits:**  Audits are in progress, and there are no finalized reports yet
+  - ✅ SCOUTS: If there are multiple report links, please format them in a list.
+- **Documentation:** https://docs.lido.fi/, https://github.com/lidofinance/lido-improvement-proposals/blob/develop/LIPS/lip-29.md
+- **Website:** https://lido.fi/
+- **X/Twitter:** https://x.com/lidofinance
+
+---
+
+# Scope
+
+[ ✅ SCOUTS: add scoping and technical details here ]
+
+### Files in scope
+- ✅ This should be completed using the `metrics.md` file
+- ✅ Last row of the table should be Total: SLOC
+- ✅ SCOUTS: Have the sponsor review and and confirm in text the details in the section titled "Scoping Q amp; A"
+
+*For sponsors that don't use the scoping tool: list all files in scope in the table below (along with hyperlinks) -- and feel free to add notes to emphasize areas of focus.*
+
+| Contract | SLOC | Purpose | Libraries used |  
+| ----------- | ----------- | ----------- | ----------- |
+| [contracts/folder/sample.sol](https://github.com/code-423n4/repo-name/blob/contracts/folder/sample.sol) | 123 | This contract does XYZ | [`@openzeppelin/*`](https://openzeppelin.com/contracts/) |
+
+### Files out of scope
+✅ SCOUTS: List files/directories out of scope
+
+# Additional context
+
+## Areas of concern (where to focus for bugs)
+- Bond accounting consitency
+- No possibility to steal bond funds
+- No protocol grieffing
+
+✅ SCOUTS: Please format the response above 👆 so its not a wall of text and its readable.
+
+## Main invariants
+
+- Node Operators can not claim more rewards than distributed in the Performance Oracle report
+- Node Operators can not delete deposited keys
+- Add Keys operation ensures that after the keys addition all of the Node Operator's keys are covered with the bond
+
+More invariants here - https://github.com/lidofinance/community-staking-module/blob/develop/test/helpers/InvariantAsserts.sol
+
+✅ SCOUTS: Please format the response above 👆 so its not a wall of text and its readable.
+
+## All trusted roles in the protocol
+
+- Lido DAO (admin functions, smart contract upgrades)
+- CSM Committee multisig (EL Rewards Stealing penalty reporting and cancelation, Bond curve set, emergency contracts pause via GateSeal, end referral season in VettedGate)
+
+More on roles here - https://hackmd.io/@lido/csm-v2-spec#Roles-to-actors-mapping
+
+✅ SCOUTS: Please format the response above 👆 using the template below👇
+
+| Role                                | Description                       |
+| --------------------------------------- | ---------------------------- |
+| Owner                          | Has superpowers                |
+| Administrator                             | Can change fees                       |
+
+✅ SCOUTS: Please format the response above 👆 so its not a wall of text and its readable.
+
+## Running tests
+
+git clone git@github.com:lidofinance/community-staking-module.git
+cd community-staking-module
+foundryup -v 1.2.1
+just deps
+
+# Run unit tests
+just test-unit
+
+# Run integration tests
+export RPC_URL=<YOUR_ETHEREUM_RPC_URL>
+export DEPLOY_CONFIG=./artifacts/mainnet/deploy-mainnet.json
+export CHAIN=mainnet
+export ARTIFACTS_DIR=./artifacts/local/
+# Alternatively, set all envs in the .env file
+just test-local
+
+# Run upgrade tests
+export RPC_URL=<YOUR_ETHEREUM_RPC_URL>
+export DEPLOY_CONFIG=./artifacts/mainnet/deploy-mainnet.json
+export CHAIN=mainnet
+export ARTIFACTS_DIR=./artifacts/local/
+# Alternatively, set all envs in the .env file
+just test-upgrade
+
+✅ SCOUTS: Please format the response above 👆 using the template below👇
+
+```bash
+git clone https://github.com/code-423n4/2023-08-arbitrum
+git submodule update --init --recursive
+cd governance
+foundryup
+make install
+make build
+make sc-election-test
+```
+To run code coverage
+```bash
+make coverage
+```
+
+✅ SCOUTS: Add a screenshot of your terminal showing the test coverage
+
+## Miscellaneous
+Employees of Lido Finance and employees' family members are ineligible to participate in this audit.
+
+Code4rena's rules cannot be overridden by the contents of this README. In case of doubt, please check with C4 staff.
 
 
 # Scope

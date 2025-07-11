@@ -287,6 +287,23 @@ test-local *args:
 
     just kill-fork
 
+test-poc *args:
+    #!/usr/bin/env bash
+    set -euxo pipefail
+
+    just make-fork --silent &
+    while ! echo exit | nc {{anvil_host}} {{anvil_port}} > /dev/null; do sleep 1; done
+    just deploy --silent --private-key=`cat localhost.json | jq -r ".private_keys[0]"`
+
+    export DEPLOY_CONFIG=./artifacts/local/deploy-{{chain}}.json
+    export RPC_URL={{anvil_rpc_url}}
+
+    just vote-add-module
+
+    forge test --match-path 'test/PoC.t.sol' -vvv --show-progress {{args}}
+
+    just kill-fork
+
 # Deploy CSM from scratch and run deployment tests
 test-full-deploy *args:
     #!/usr/bin/env bash

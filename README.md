@@ -12,7 +12,7 @@
 **❗ Important notes for wardens** 
 1. A coded, runnable PoC is required for all High/Medium submissions to this audit. 
   - This repo includes a basic template to run the test suite.
-  - PoCs must use the test suite provided in this repo.
+  - PoCs must use the test suite provided in this repo (see [PoC.t.sol](https://github.com/code-423n4/2025-07-lido-finance/blob/main/test/PoC.t.sol). Use `just test-poc` to run this test)
   - Your submission will be marked as Insufficient if the POC is not runnable and working with the provided test suite.
   - Exception: PoC is optional (though recommended) for wardens with signal ≥ 0.68.
 2. Judging phase risk adjustments (upgrades/downgrades):

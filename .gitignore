@@ -1,0 +1,29 @@
+snapshots/
+node_modules/
+
+.env*
+!.env.sample
+!.envrc
+.idea
+.vscode
+.direnv
+.DS_Store
+
+# Foundry files
+broadcast/
+coverage/
+cache/
+out/
+localhost.json
+lcov.info
+
+# Yarn
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
+.wake/
+tags

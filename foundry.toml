@@ -1,0 +1,58 @@
+[profile.default]
+solc = "0.8.24"
+evm_version = "cancun"
+optimizer = true
+optimizer_runs = 160
+bytecode_hash = "none" # The metadata hash removed from the bytecode (not the metadata itself).
+# uncomment this to inspect storage layouts in build artifacts
+# extra_output = ["storageLayout"]
+
+src = "src"
+out = "out"
+libs = ["lib", "node_modules"]
+cache_path  = "cache"
+
+block_gas_limit = 30_000_000
+fuzz = { runs = 256 }
+
+gas_reports = [
+    "VettedGate",
+    "PermissionlessGate",
+    "CSAccounting",
+    "CSFeeDistributor",
+    "CSFeeOracle",
+    "CSModule",
+    "CSVerifier",
+    "CSPerksRegistry",
+    "AssetRecovererLib",
+    "OssifiableProxy",
+    "HashConsensus"
+]
+
+fs_permissions = [
+    { access = "read-write", path = "./out" },
+    { access = "read-write", path = "./artifacts" },
+    { access = "read", path = "./test/fixtures" },
+]
+
+ignored_warnings_from = ["src/lib/base-oracle/HashConsensus.sol", "test/OssifiableProxy.t.sol"]
+
+[profile.ci]
+verbosity = 3
+fuzz = { runs = 10_000, max_test_rejects = 2_000_000 }
+
+# See more config options https://github.com/foundry-rs/foundry/tree/master/crates/config
+
+[profile.coverage]
+# due to coverage running with optimizer disabled, we need to increase the gas limit
+# to fit CSM contract tests in one block
+block_gas_limit = 60_000_000
+
+[profile.deploy]
+# unknown problem of too high estimated gas usage in the implementation deployment script
+# after upgrading forge-std 1.7.6 -> 1.9.5
+block_gas_limit = 60_000_000
+
+[profile.upgrades]
+extra_output = ["storageLayout"]
+build_info=true

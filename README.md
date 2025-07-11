@@ -33,124 +33,22 @@ _Note for C4 wardens: Anything included in this `Automated Findings / Publicly K
 
 More on the Known Issues and Security Considerations here - https://hackmd.io/@lido/csm-v2-spec#Security-considerations
 
-✅ SCOUTS: Please format the response above 👆 so its not a wall of text and its readable.
 
 # Overview
 
-[ ⭐️ SPONSORS: add info here ]
+Lido Community Staking Module (CSM) is a permissionless module allowing community stakers to operate Ethereum validators with lower entry costs. Stakers provide stETH bonds, serving as security collateral, and receive rewards in the form of bond rebase and staking rewards (including execution layer rewards), which are socialized across Lido’s staking modules.
+
+More on CSM in the [docs](https://docs.lido.fi/staking-modules/csm/intro).
+
 
 ## Links
 
 - **Previous audits:**  Audits are in progress, and there are no finalized reports yet
-  - ✅ SCOUTS: If there are multiple report links, please format them in a list.
 - **Documentation:** https://docs.lido.fi/, https://github.com/lidofinance/lido-improvement-proposals/blob/develop/LIPS/lip-29.md
 - **Website:** https://lido.fi/
 - **X/Twitter:** https://x.com/lidofinance
 
 ---
-
-# Scope
-
-[ ✅ SCOUTS: add scoping and technical details here ]
-
-### Files in scope
-- ✅ This should be completed using the `metrics.md` file
-- ✅ Last row of the table should be Total: SLOC
-- ✅ SCOUTS: Have the sponsor review and and confirm in text the details in the section titled "Scoping Q amp; A"
-
-*For sponsors that don't use the scoping tool: list all files in scope in the table below (along with hyperlinks) -- and feel free to add notes to emphasize areas of focus.*
-
-| Contract | SLOC | Purpose | Libraries used |  
-| ----------- | ----------- | ----------- | ----------- |
-| [contracts/folder/sample.sol](https://github.com/code-423n4/repo-name/blob/contracts/folder/sample.sol) | 123 | This contract does XYZ | [`@openzeppelin/*`](https://openzeppelin.com/contracts/) |
-
-### Files out of scope
-✅ SCOUTS: List files/directories out of scope
-
-# Additional context
-
-## Areas of concern (where to focus for bugs)
-- Bond accounting consitency
-- No possibility to steal bond funds
-- No protocol grieffing
-
-✅ SCOUTS: Please format the response above 👆 so its not a wall of text and its readable.
-
-## Main invariants
-
-- Node Operators can not claim more rewards than distributed in the Performance Oracle report
-- Node Operators can not delete deposited keys
-- Add Keys operation ensures that after the keys addition all of the Node Operator's keys are covered with the bond
-
-More invariants here - https://github.com/lidofinance/community-staking-module/blob/develop/test/helpers/InvariantAsserts.sol
-
-✅ SCOUTS: Please format the response above 👆 so its not a wall of text and its readable.
-
-## All trusted roles in the protocol
-
-- Lido DAO (admin functions, smart contract upgrades)
-- CSM Committee multisig (EL Rewards Stealing penalty reporting and cancelation, Bond curve set, emergency contracts pause via GateSeal, end referral season in VettedGate)
-
-More on roles here - https://hackmd.io/@lido/csm-v2-spec#Roles-to-actors-mapping
-
-✅ SCOUTS: Please format the response above 👆 using the template below👇
-
-| Role                                | Description                       |
-| --------------------------------------- | ---------------------------- |
-| Owner                          | Has superpowers                |
-| Administrator                             | Can change fees                       |
-
-✅ SCOUTS: Please format the response above 👆 so its not a wall of text and its readable.
-
-## Running tests
-
-git clone git@github.com:lidofinance/community-staking-module.git
-cd community-staking-module
-foundryup -v 1.2.1
-just deps
-
-# Run unit tests
-just test-unit
-
-# Run integration tests
-export RPC_URL=<YOUR_ETHEREUM_RPC_URL>
-export DEPLOY_CONFIG=./artifacts/mainnet/deploy-mainnet.json
-export CHAIN=mainnet
-export ARTIFACTS_DIR=./artifacts/local/
-# Alternatively, set all envs in the .env file
-just test-local
-
-# Run upgrade tests
-export RPC_URL=<YOUR_ETHEREUM_RPC_URL>
-export DEPLOY_CONFIG=./artifacts/mainnet/deploy-mainnet.json
-export CHAIN=mainnet
-export ARTIFACTS_DIR=./artifacts/local/
-# Alternatively, set all envs in the .env file
-just test-upgrade
-
-✅ SCOUTS: Please format the response above 👆 using the template below👇
-
-```bash
-git clone https://github.com/code-423n4/2023-08-arbitrum
-git submodule update --init --recursive
-cd governance
-foundryup
-make install
-make build
-make sc-election-test
-```
-To run code coverage
-```bash
-make coverage
-```
-
-✅ SCOUTS: Add a screenshot of your terminal showing the test coverage
-
-## Miscellaneous
-Employees of Lido Finance and employees' family members are ineligible to participate in this audit.
-
-Code4rena's rules cannot be overridden by the contents of this README. In case of doubt, please check with C4 staff.
-
 
 # Scope
 
@@ -201,124 +99,116 @@ Code4rena's rules cannot be overridden by the contents of this README. In case o
 
 *See [out_of_scope.txt](https://github.com/code-423n4/2025-07-lido-finance/blob/main/out_of_scope.txt)*
 
-| File         |
-| ------------ |
-| ./script/DeployBase.s.sol |
-| ./script/DeployCSVerifierElectra.s.sol |
-| ./script/DeployHolesky.s.sol |
-| ./script/DeployHoodi.s.sol |
-| ./script/DeployImplementationsBase.s.sol |
-| ./script/DeployImplementationsHolesky.s.sol |
-| ./script/DeployImplementationsHoodi.s.sol |
-| ./script/DeployImplementationsMainnet.s.sol |
-| ./script/DeployLocalDevNet.s.sol |
-| ./script/DeployMainnet.s.sol |
-| ./script/constants/GIndices.sol |
-| ./script/fork-helpers/Common.sol |
-| ./script/fork-helpers/NodeOperators.s.sol |
-| ./script/fork-helpers/PauseResume.s.sol |
-| ./script/fork-helpers/SimulateVote.s.sol |
-| ./script/utils/Common.sol |
-| ./script/utils/Dummy.sol |
-| ./script/utils/Json.sol |
-| ./src/interfaces/IACL.sol |
-| ./src/interfaces/IBurner.sol |
-| ./src/interfaces/ICSAccounting.sol |
-| ./src/interfaces/ICSBondCore.sol |
-| ./src/interfaces/ICSBondCurve.sol |
-| ./src/interfaces/ICSBondLock.sol |
-| ./src/interfaces/ICSEjector.sol |
-| ./src/interfaces/ICSExitPenalties.sol |
-| ./src/interfaces/ICSFeeDistributor.sol |
-| ./src/interfaces/ICSFeeOracle.sol |
-| ./src/interfaces/ICSModule.sol |
-| ./src/interfaces/ICSParametersRegistry.sol |
-| ./src/interfaces/ICSStrikes.sol |
-| ./src/interfaces/ICSVerifier.sol |
-| ./src/interfaces/IExitTypes.sol |
-| ./src/interfaces/IGateSeal.sol |
-| ./src/interfaces/IGateSealFactory.sol |
-| ./src/interfaces/IKernel.sol |
-| ./src/interfaces/ILido.sol |
-| ./src/interfaces/ILidoLocator.sol |
-| ./src/interfaces/IPermissionlessGate.sol |
-| ./src/interfaces/IStETH.sol |
-| ./src/interfaces/IStakingModule.sol |
-| ./src/interfaces/IStakingRouter.sol |
-| ./src/interfaces/ITriggerableWithdrawalsGateway.sol |
-| ./src/interfaces/IVEBO.sol |
-| ./src/interfaces/IVettedGate.sol |
-| ./src/interfaces/IVettedGateFactory.sol |
-| ./src/interfaces/IWithdrawalQueue.sol |
-| ./src/interfaces/IWithdrawalVault.sol |
-| ./src/interfaces/IWstETH.sol |
-| ./test/AssetRecoverer.t.sol |
-| ./test/BaseOracle.t.sol |
-| ./test/CSAccounting.t.sol |
-| ./test/CSBondCore.t.sol |
-| ./test/CSBondCurve.t.sol |
-| ./test/CSBondLock.t.sol |
-| ./test/CSEjector.t.sol |
-| ./test/CSExitPenalties.t.sol |
-| ./test/CSFeeDistributor.t.sol |
-| ./test/CSFeeOracle.t.sol |
-| ./test/CSModule.t.sol |
-| ./test/CSParametersRegistry.t.sol |
-| ./test/CSStrikes.t.sol |
-| ./test/CSVerifier.t.sol |
-| ./test/CSVerifierHistorical.t.sol |
-| ./test/CSVerifierHistoricalCrossForks.t.sol |
-| ./test/GIndex.t.sol |
-| ./test/HashConsensus.t.sol |
-| ./test/OssifiableProxy.t.sol |
-| ./test/PausableUntil.t.sol |
-| ./test/PermissionlessGate.t.sol |
-| ./test/QueueLib.t.sol |
-| ./test/SSZ.t.sol |
-| ./test/SigningKeys.t.sol |
-| ./test/TransientUintUintMapLib.t.sol |
-| ./test/UnstructuredStorage.t.sol |
-| ./test/ValidatorCountsReport.t.sol |
-| ./test/Versioned.t.sol |
-| ./test/VettedGate.t.sol |
-| ./test/VettedGateFactory.t.sol |
-| ./test/fork/deployment/PostDeployment.t.sol |
-| ./test/fork/integration/ClaimInTokens.t.sol |
-| ./test/fork/integration/CreateAndDeposit.sol |
-| ./test/fork/integration/Ejection.t.sol |
-| ./test/fork/integration/GateSeal.t.sol |
-| ./test/fork/integration/Misc.t.sol |
-| ./test/fork/integration/NoManagement.t.sol |
-| ./test/fork/integration/Oracle.t.sol |
-| ./test/fork/integration/Penalty.t.sol |
-| ./test/fork/integration/RecoverTokens.t.sol |
-| ./test/fork/integration/StakingRouter.t.sol |
-| ./test/fork/integration/misc/Invariants.t.sol |
-| ./test/fork/integration/misc/ProxyUpgrades.sol |
-| ./test/fork/vote-upgrade/V2Upgrade.sol |
-| ./test/helpers/ERCTestable.sol |
-| ./test/helpers/Fixtures.sol |
-| ./test/helpers/InvariantAsserts.sol |
-| ./test/helpers/MerkleTree.sol |
-| ./test/helpers/MerkleTree.t.sol |
-| ./test/helpers/Permit.sol |
-| ./test/helpers/Utilities.sol |
-| ./test/helpers/mocks/BurnerMock.sol |
-| ./test/helpers/mocks/CSAccountingMock.sol |
-| ./test/helpers/mocks/CSMMock.sol |
-| ./test/helpers/mocks/CSParametersRegistryMock.sol |
-| ./test/helpers/mocks/CSStrikesMock.sol |
-| ./test/helpers/mocks/ConsensusContractMock.sol |
-| ./test/helpers/mocks/DistributorMock.sol |
-| ./test/helpers/mocks/EjectorMock.sol |
-| ./test/helpers/mocks/ExitPenaltiesMock.sol |
-| ./test/helpers/mocks/LidoLocatorMock.sol |
-| ./test/helpers/mocks/LidoMock.sol |
-| ./test/helpers/mocks/ReportProcessorMock.sol |
-| ./test/helpers/mocks/StETHMock.sol |
-| ./test/helpers/mocks/Stub.sol |
-| ./test/helpers/mocks/TWGMock.sol |
-| ./test/helpers/mocks/WithdrawalQueueMock.sol |
-| ./test/helpers/mocks/WstETHMock.sol |
-| Totals: 117 |
+
+
+# Additional context
+
+## Areas of concern (where to focus for bugs)
+- Bond accounting consitency
+- No possibility to steal bond funds
+- No protocol grieffing
+
+
+## Main invariants
+
+- Node Operators can not claim more rewards than distributed in the Performance Oracle report
+- Node Operators can not delete deposited keys
+- Add Keys operation ensures that after the keys addition all of the Node Operator's keys are covered with the bond
+
+More invariants [here](https://github.com/lidofinance/community-staking-module/blob/develop/test/helpers/InvariantAsserts.sol)
+
+
+## All trusted roles in the protocol
+
+More on roles here - https://hackmd.io/@lido/csm-v2-spec#Roles-to-actors-mapping
+
+
+| Role                                | Description                       |
+| --------------------------------------- | ---------------------------- |
+| Lido DAO                          | admin functions, smart contract upgrades                |
+| CSM Committee multisig                             | EL Rewards Stealing penalty reporting and cancelation, Bond curve set, emergency contracts pause via GateSeal, end referral season in VettedGate   |
+
+
+## Running tests
+
+- Install [Foundry tools](https://book.getfoundry.sh/getting-started/installation)
+
+- Install [Just](https://github.com/casey/just)
+
+> Some Linux distributions (like Arch Linux) might require additional install of [netcat (nc)](https://en.wikipedia.org/wiki/Netcat). The preferred version is OpenBSD.
+
+
+
+```shell
+git clone git@github.com:code-423n4/2025-07-lido-finance.git
+cd 2025-07-lido-finance
+foundryup -v 1.2.1
+just deps
+
+
+# Run unit tests
+just test-unit
+
+# Run integration tests
+
+export RPC_URL=<YOUR_ETHEREUM_RPC_URL>
+export DEPLOY_CONFIG=./artifacts/mainnet/deploy-mainnet.json
+export CHAIN=mainnet
+export ARTIFACTS_DIR=./artifacts/local/
+# Alternatively, set all envs in the .env file
+just test-local
+
+# Run upgrade tests
+export RPC_URL=<YOUR_ETHEREUM_RPC_URL>
+export DEPLOY_CONFIG=./artifacts/mainnet/deploy-mainnet.json
+export CHAIN=mainnet
+export ARTIFACTS_DIR=./artifacts/local/
+# Alternatively, set all envs in the .env file
+just test-upgrade
+```
+
+To run code coverage
+```bash
+just coverage
+```
+
+Coverage table:
+| File                                  | % Lines            | % Statements       | % Branches       | % Funcs           |
+| ------------        | --------            | -------       | --------       | --------           |
+| src/CSAccounting.sol                  | 100.00% (213/213)  | 100.00% (193/193)  | 100.00% (19/19)  | 100.00% (52/52)   |
+| src/CSEjector.sol                     | 100.00% (70/70)    | 100.00% (75/75)    | 100.00% (12/12)  | 100.00% (10/10)   |
+| src/CSExitPenalties.sol               | 100.00% (63/63)    | 100.00% (68/68)    | 100.00% (11/11)  | 100.00% (9/9)     |
+| src/CSFeeDistributor.sol              | 100.00% (100/100)  | 100.00% (95/95)    | 100.00% (23/23)  | 100.00% (16/16)   |
+| src/CSFeeOracle.sol                   | 100.00% (40/40)    | 100.00% (30/30)    | 100.00% (4/4)    | 100.00% (10/10)   |
+| src/CSModule.sol                      | 100.00% (500/500)  | 100.00% (493/493)  | 100.00% (74/74)  | 100.00% (72/72)   |
+| src/CSParametersRegistry.sol          | 100.00% (259/259)  | 100.00% (209/209)  | 100.00% (22/22)  | 100.00% (68/68)   |
+| src/CSStrikes.sol                     | 100.00% (88/88)    | 100.00% (96/96)    | 100.00% (17/17)  | 100.00% (11/11)   |
+| src/CSVerifier.sol                    | 100.00% (97/97)    | 100.00% (115/115)  | 100.00% (16/16)  | 100.00% (11/11)   |
+| src/PermissionlessGate.sol            | 100.00% (19/19)    | 100.00% (14/14)    | 100.00% (2/2)    | 100.00% (5/5)     |
+| src/VettedGate.sol                    | 100.00% (130/130)  | 100.00% (114/114)  | 100.00% (20/20)  | 100.00% (26/26)   |
+| src/VettedGateFactory.sol             | 100.00% (8/8)      | 100.00% (6/6)      | 100.00% (1/1)    | 100.00% (2/2)     |
+| src/abstract/AssetRecoverer.sol       | 100.00% (12/12)    | 100.00% (8/8)      | 100.00% (0/0)    | 100.00% (4/4)     |
+| src/abstract/CSBondCore.sol           | 100.00% (106/106)  | 100.00% (113/113)  | 100.00% (12/12)  | 100.00% (19/19)   |
+| src/abstract/CSBondCurve.sol          | 100.00% (106/106)  | 100.00% (112/112)  | 100.00% (17/17)  | 100.00% (17/17)   |
+| src/abstract/CSBondLock.sol           | 100.00% (47/47)    | 100.00% (41/41)    | 100.00% (8/8)    | 100.00% (11/11)   |
+| src/lib/AssetRecovererLib.sol         | 100.00% (19/19)    | 100.00% (16/16)    | 100.00% (1/1)    | 100.00% (5/5)     |
+| src/lib/NOAddresses.sol               | 100.00% (76/76)    | 100.00% (69/69)    | 100.00% (22/22)  | 100.00% (6/6)     |
+| src/lib/QueueLib.sol                  | 100.00% (46/46)    | 100.00% (42/42)    | 100.00% (7/7)    | 100.00% (5/5)     |
+| src/lib/SSZ.sol                       | 95.65% (88/92)     | 95.40% (83/87)     | 69.23% (9/13)    | 100.00% (6/6)     |
+| src/lib/SigningKeys.sol               | 100.00% (82/82)    | 100.00% (91/91)    | 100.00% (5/5)    | 100.00% (6/6)     |
+| src/lib/TransientUintUintMapLib.sol   | 100.00% (24/24)    | 100.00% (21/21)    | 100.00% (0/0)    | 100.00% (6/6)     |
+| src/lib/UnstructuredStorage.sol       | 100.00% (8/8)      | 100.00% (4/4)      | 100.00% (0/0)    | 100.00% (4/4)     |
+| src/lib/ValidatorCountsReport.sol     | 100.00% (10/10)    | 100.00% (14/14)    | 100.00% (1/1)    | 100.00% (2/2)     |
+| src/lib/base-oracle/BaseOracle.sol    | 100.00% (115/115)  | 100.00% (115/115)  | 100.00% (23/23)  | 100.00% (20/20)   |
+| src/lib/base-oracle/HashConsensus.sol | 97.15% (341/351)   | 97.76% (349/357)   | 91.80% (56/61)   | 100.00% (56/56)   |
+| src/lib/proxy/OssifiableProxy.sol     | 100.00% (27/27)    | 100.00% (23/23)    | 100.00% (2/2)    | 100.00% (10/10)   |
+| src/lib/utils/PausableUntil.sol       | 100.00% (43/43)    | 100.00% (34/34)    | 100.00% (10/10)  | 100.00% (10/10)   |
+| src/lib/utils/Versioned.sol           | 100.00% (21/21)    | 100.00% (20/20)    | 100.00% (4/4)    | 100.00% (6/6)     |
+| Total                                 | 99.49% (2758/2772) | 99.55% (2663/2675) | 97.79% (398/407) | 100.00% (485/485) |
+
+
+## Miscellaneous
+Employees of Lido Finance and employees' family members are ineligible to participate in this audit.
+
+Code4rena's rules cannot be overridden by the contents of this README. In case of doubt, please check with C4 staff.
 

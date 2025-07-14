@@ -44,7 +44,7 @@ More on CSM in the [docs](https://docs.lido.fi/staking-modules/csm/intro).
 ## Links
 
 - **Previous audits:**  Audits are in progress, and there are no finalized reports yet
-- **Documentation:** https://docs.lido.fi/, https://github.com/lidofinance/lido-improvement-proposals/blob/develop/LIPS/lip-29.md
+- **Documentation:** https://docs.lido.fi/, https://docs.lido.fi/staking-modules/csm/intro (CSM v1), https://operatorportal.lido.fi/modules/community-staking-module (CSM v1), https://github.com/lidofinance/lido-improvement-proposals/blob/develop/LIPS/lip-29.md (CSM v2)
 - **Website:** https://lido.fi/
 - **X/Twitter:** https://x.com/lidofinance
 
@@ -115,7 +115,7 @@ More on CSM in the [docs](https://docs.lido.fi/staking-modules/csm/intro).
 - Node Operators can not delete deposited keys
 - Add Keys operation ensures that after the keys addition all of the Node Operator's keys are covered with the bond
 
-More invariants [here](https://github.com/lidofinance/community-staking-module/blob/develop/test/helpers/InvariantAsserts.sol)
+More invariants [here](https://github.com/lidofinance/community-staking-module/blob/main/test/helpers/InvariantAsserts.sol)
 
 
 ## All trusted roles in the protocol
@@ -142,7 +142,7 @@ More on roles here - https://hackmd.io/@lido/csm-v2-spec#Roles-to-actors-mapping
 ```shell
 git clone git@github.com:code-423n4/2025-07-lido-finance.git
 cd 2025-07-lido-finance
-foundryup -v 1.2.1
+foundryup -v 1.0.0
 just deps
 
 
@@ -166,6 +166,8 @@ export ARTIFACTS_DIR=./artifacts/local/
 # Alternatively, set all envs in the .env file
 just test-upgrade
 ```
+
+More on how to run tests in the [original repo](https://github.com/lidofinance/community-staking-module/blob/main/README.md).
 
 To run code coverage
 ```bash
@@ -208,7 +210,7 @@ Coverage table:
 
 
 ## Miscellaneous
-Employees of Lido Finance and employees' family members are ineligible to participate in this audit.
+Contributors of Lido Finance and contributors' family members are ineligible to participate in this audit.
 
 Code4rena's rules cannot be overridden by the contents of this README. In case of doubt, please check with C4 staff.
 

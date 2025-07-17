@@ -4,31 +4,33 @@ pragma solidity 0.8.24;
 
 import "forge-std/Test.sol";
 
-import { DeploymentFixtures } from "./helpers/Fixtures.sol";
-import { DeployParams      } from "./../script/DeployBase.s.sol";
-import { Utilities         } from "./helpers/Utilities.sol";
+import {DeploymentFixtures} from "./helpers/Fixtures.sol";
+import {DeployParams}      from "./../script/DeployBase.s.sol";
+import {Utilities}         from "./helpers/Utilities.sol";
 
 /**
- * Minimal PoC template for the C4 audit.
+ * Minimal PoC template for Code 4 rena.
  *
- * ‑ `setUp()` is left empty so the test suite compiles & runs out‑of‑the‑box.
- * ‑ Replace the dummy assertion in `test_PoC()` with real exploit logic.
+ * – `setUp()` is intentionally empty so the file compiles & runs out‑of‑the‑box.
+ * – Insert *only* the initialisation your exploit needs.
+ * – Replace the dummy assertion in `test_PoC()` with real exploit logic.
  *
  * Run locally with:
  *   forge test --match-path test/PoC.t.sol -vvvv
  */
 contract DeploymentBaseTest_PoC is Test, Utilities, DeploymentFixtures {
-    DeployParams internal deployParams;   // keep if you intend to use it
-    uint256       adminsCount;            // keep if you intend to use it
+    /* ─────────────── storage ─────────────── */
+    DeployParams internal deployParams;
+    uint256       adminsCount;
 
-    /// @notice Initialise state that your exploit actually requires.
+    /* ─────────────── hooks ───────────────── */
     function setUp() public {
-        // e.g. you might fork main‑net and initialise contracts here.
-        // For a bare template we do nothing.
+        // e.g.  vm.createFork(RPC_URL);  initializeFromDeployment();  etc.
     }
 
-    /// @notice Replace the assertion below with your real proof‑of‑concept.
+    /* ─────────────── tests ───────────────── */
     function test_PoC() public {
+        // ↓ Replace with your exploit
         assertTrue(true, "replace with real PoC assertions");
     }
 }

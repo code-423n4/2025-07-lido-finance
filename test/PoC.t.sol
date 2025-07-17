@@ -9,23 +9,26 @@ import { DeployParams      } from "./../script/DeployBase.s.sol";
 import { Utilities         } from "./helpers/Utilities.sol";
 
 /**
- * Minimal PoC template.
+ * Minimal PoC template for the C4 audit.
  *
- * – `setUp()` is intentionally empty so the file compiles & runs out‑of‑the‑box.
- * – Replace the dummy assertion in `test_PoC()` with real exploit logic.
+ * ‑ `setUp()` is left empty so the test suite compiles & runs out‑of‑the‑box.
+ * ‑ Replace the dummy assertion in `test_PoC()` with real exploit logic.
  *
- * Run with:  forge test --match-path test/PoC.t.sol -vvvv
+ * Run locally with:
+ *   forge test --match-path test/PoC.t.sol -vvvv
  */
 contract DeploymentBaseTest_PoC is Test, Utilities, DeploymentFixtures {
-    DeployParams internal deployParams;
-    uint256       adminsCount;
+    DeployParams internal deployParams;   // keep if you intend to use it
+    uint256       adminsCount;            // keep if you intend to use it
 
+    /// @notice Initialise state that your exploit actually requires.
     function setUp() public {
-        // ← add only the initialisation your exploit actually needs
+        // e.g. you might fork main‑net and initialise contracts here.
+        // For a bare template we do nothing.
     }
 
+    /// @notice Replace the assertion below with your real proof‑of‑concept.
     function test_PoC() public {
-        // ↓ replace this with your real proof‑of‑concept
         assertTrue(true, "replace with real PoC assertions");
     }
 }

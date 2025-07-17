@@ -1,5 +1,4 @@
-// SPDX-FileCopyrightText: 2025 Lido <info@lido.fi>
-// SPDX-License-Identifier: GPL‑3.0
+// SPDX-License-Identifier: GPL-3.0-or-later
 pragma solidity 0.8.24;
 
 import "../src/CSAccounting.sol";
@@ -7,10 +6,10 @@ import "../src/CSAccounting.sol";
 /**
  * Minimal Echidna harness for the Community‑Staking‑Module (CSM‑v2).
  *
- * • Deploys a fresh `CSAccounting` with harmless stub dependencies so the
- *   constructor cannot revert.
- * • Contains a single always‑true invariant (`echidna_dummy`) that proves the
- *   Foundry → Echidna pipeline works.  Replace it with real invariants later.
+ * • Deploys a fresh `CSAccounting` with inert stub contracts so its constructor
+ *   cannot revert.
+ * • Provides a single always‑true invariant (`echidna_dummy`) that proves the
+ *   Foundry → Echidna tool‑chain works.  Replace it with real invariants later.
  */
 contract Echidna_Accounting_Invariants {
     CSAccounting public acc;
@@ -27,17 +26,18 @@ contract Echidna_Accounting_Invariants {
         );
     }
 
-    /// -----------------------------------------------------------------------
-    ///  Replace this with real invariants once the scaffold is confirmed
-    /// -----------------------------------------------------------------------
+    /* ---------------------------------------------------------------------- */
+    /*  Invariants – replace `echidna_dummy` with real ones when ready        */
+    /* ---------------------------------------------------------------------- */
     function echidna_dummy() external pure returns (bool) {
         return true;
     }
 }
 
 /**
- * Very small stub that satisfies the methods `CSAccounting` expects from
- * the real LidoLocator.  Each returns a distinct inert address.
+ * The production CSAccounting queries LidoLocator for various component
+ * addresses.  This tiny stub satisfies those calls with distinct throw‑away
+ * addresses so the constructor cannot revert during fuzzing.
  */
 contract DummyLocator {
     function lido()            external pure returns (address) { return address(0x0000000000000000000000000000000000000100); }

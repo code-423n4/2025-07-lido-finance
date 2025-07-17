@@ -1,36 +1,31 @@
 // SPDX-FileCopyrightText: 2025 Lido <info@lido.fi>
 // SPDX-License-Identifier: GPL-3.0
-
 pragma solidity 0.8.24;
 
 import "forge-std/Test.sol";
 
 import { DeploymentFixtures } from "./helpers/Fixtures.sol";
-import { DeployParams } from "./../script/DeployBase.s.sol";
+import { DeployParams      } from "./../script/DeployBase.s.sol";
+import { Utilities         } from "./helpers/Utilities.sol";
 
-import { Utilities } from "./helpers/Utilities.sol";
-
-// based on test/fork/deployment/PostDeployment.t.sol
-// run `just test-poc` to run the tests here
-
+/**
+ * Minimal PoC template.
+ *
+ * – `setUp()` is intentionally empty so the file compiles & runs out‑of‑the‑box.
+ * – Replace the dummy assertion in `test_PoC()` with real exploit logic.
+ *
+ * Run with:  forge test --match-path test/PoC.t.sol -vvvv
+ */
 contract DeploymentBaseTest_PoC is Test, Utilities, DeploymentFixtures {
     DeployParams internal deployParams;
-    uint256 adminsCount;
+    uint256       adminsCount;
 
     function setUp() public {
-        Env memory env = envVars();
-        vm.createSelectFork(env.RPC_URL);
-        initializeFromDeployment();
-        deployParams = parseDeployParams(env.DEPLOY_CONFIG);
-        adminsCount = block.chainid == 1 ? 1 : 2;
+        // ← add only the initialisation your exploit actually needs
     }
 
-    function test_PoC() public view {
-    // add here the test scenario, e.g.:
-        // (uint256 strikesLifetime, uint256 strikesThreshold) = parametersRegistry
-        //     .defaultStrikesParams();
-        // assertEq(strikesLifetime, deployParams.defaultStrikesLifetimeFrames);
-        // assertEq(strikesThreshold, deployParams.defaultStrikesThreshold);
+    function test_PoC() public {
+        // ↓ replace this with your real proof‑of‑concept
+        assertTrue(true, "replace with real PoC assertions");
     }
-
 }

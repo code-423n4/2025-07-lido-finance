@@ -4,33 +4,40 @@ pragma solidity 0.8.24;
 
 import "forge-std/Test.sol";
 
-import {DeploymentFixtures} from "./helpers/Fixtures.sol";
-import {DeployParams}      from "./../script/DeployBase.s.sol";
-import {Utilities}         from "./helpers/Utilities.sol";
+import { DeploymentFixtures } from "./helpers/Fixtures.sol";
+import { DeployParams      } from "./../script/DeployBase.s.sol";
+import { Utilities         } from "./helpers/Utilities.sol";
 
 /**
- * Minimal PoC template for Code 4 rena.
+ * ────────────────────────────────────────────────────────────────────────────
+ *  🔥  Minimal PoC template for Code4rena submissions
+ * ────────────────────────────────────────────────────────────────────────────
+ *  ‣ `setUp()` is intentionally empty → no RPC / fork / heavy bootstrap.
+ *  ‣ Drop any deployment logic you need **only** for your exploit.
+ *  ‣ Replace the dummy assertion in `test_PoC()` with real exploit checks.
  *
- * – `setUp()` is intentionally empty so the file compiles & runs out‑of‑the‑box.
- * – Insert *only* the initialisation your exploit needs.
- * – Replace the dummy assertion in `test_PoC()` with real exploit logic.
- *
- * Run locally with:
- *   forge test --match-path test/PoC.t.sol -vvvv
+ *  Run locally with:
+ *      forge test --match-path test/PoC.t.sol -vvvv
+ * --------------------------------------------------------------------------
  */
 contract DeploymentBaseTest_PoC is Test, Utilities, DeploymentFixtures {
     /* ─────────────── storage ─────────────── */
-    DeployParams internal deployParams;
-    uint256       adminsCount;
+    DeployParams internal deployParams;   // optional helper — remove if unused
+    uint256       adminsCount;            // optional helper — remove if unused
 
-    /* ─────────────── hooks ───────────────── */
+    /* ─────────────── hooks ─────────────── */
     function setUp() public {
-        // e.g.  vm.createFork(RPC_URL);  initializeFromDeployment();  etc.
+        // If your exploit needs a fork or fixtures, add them here, e.g.:
+        // Env memory env = envVars();
+        // vm.createSelectFork(env.RPC_URL);
+        // initializeFromDeployment();
+        // deployParams = parseDeployParams(env.DEPLOY_CONFIG);
+        // adminsCount  = block.chainid == 1 ? 1 : 2;
     }
 
-    /* ─────────────── tests ───────────────── */
+    /* ─────────────── tests ─────────────── */
     function test_PoC() public {
-        // ↓ Replace with your exploit
+        /// REPLACE everything below with the actual exploit scenario
         assertTrue(true, "replace with real PoC assertions");
     }
 }

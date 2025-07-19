@@ -1,13 +1,10 @@
 ########################################
-# Dummy libraries — array form (Foundry ≥ v1.2)
+# Dummy addresses for Forge linkage
 ########################################
 [profile.default]
-src  = "src"
-out  = "out"
-libs = ["lib"]
-
 libraries = [
   "src/lib/AssetRecovererLib.sol:AssetRecovererLib:0x1000000000000000000000000000000000000000",
   "src/lib/NOAddresses.sol:NOAddresses:0x2000000000000000000000000000000000000000",
-  "src/lib/QueueLib.sol:QueueLib:0x3000000000000000000000000000000000000000"
+  "src/lib/QueueLib.sol:QueueLib:0x3000000000000000000000000000000000000000",
+  "__main__:__main__:0x4000000000000000000000000000000000000000"
 ]

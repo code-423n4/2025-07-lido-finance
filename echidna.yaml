@@ -1,5 +1,4 @@
-# Pass the same library addresses to Echidna’s internal solc
-solc-args: >
+solc_args: >
   --libraries src/lib/AssetRecovererLib.sol:AssetRecovererLib:0x1000000000000000000000000000000000000000
   --libraries src/lib/NOAddresses.sol:NOAddresses:0x2000000000000000000000000000000000000000
   --libraries src/lib/QueueLib.sol:QueueLib:0x3000000000000000000000000000000000000000

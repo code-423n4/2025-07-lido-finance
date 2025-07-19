@@ -1,49 +1,37 @@
-// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-License-Identifier: GPL‑3.0
 pragma solidity 0.8.24;
 
-import "../src/CSAccounting.sol";
+import "./CSAccounting.sol";
 
-/**
- * Minimal Echidna harness for the Community‑Staking‑Module (CSM‑v2).
- *
- * • Deploys a fresh `CSAccounting` with inert stub contracts so its constructor
- *   cannot revert.
- * • Provides a single always‑true invariant (`echidna_dummy`) that proves the
- *   Foundry → Echidna tool‑chain works.  Replace it with real invariants later.
- */
+/* -------------------------------------------------------------------------- */
+/*                             MIN‑STUB LIDO LOCATOR                          */
+/*   – deterministic, non‑zero addresses so the CSAccounting ctor never reverts */
+contract DummyLocator {
+    function lido()            external pure returns (address) { return address(0x00000000000000000000000000000000DeAD0001); }
+    function wstETH()          external pure returns (address) { return address(0x00000000000000000000000000000000DeAD0002); }
+    function withdrawalQueue() external pure returns (address) { return address(0x00000000000000000000000000000000DeAD0003); }
+    function burner()          external pure returns (address) { return address(0x00000000000000000000000000000000DeAD0004); }
+    function elRewardsVault()  external pure returns (address) { return address(0x00000000000000000000000000000000DeAD0005); }
+}
+
+/* -------------------------------------------------------------------------- */
+/*                       SIMPLE HARNESS –  one dummy invariant                */
+/* -------------------------------------------------------------------------- */
 contract Echidna_Accounting_Invariants {
     CSAccounting public acc;
 
     constructor() payable {
-        DummyLocator locator = new DummyLocator();
-
         acc = new CSAccounting(
-            address(locator),                                        // LidoLocator
-            address(0x0000000000000000000000000000000000000001),     // stub Staking‑Module
-            address(0x0000000000000000000000000000000000000002),     // stub Fee‑Distributor
-            1 days,                                                 // min bond‑lock
-            30 days                                                 // max bond‑lock
+            address(new DummyLocator()),
+            address(0x0001),
+            address(0x0002),
+            1 days,
+            30 days
         );
     }
 
-    /* ---------------------------------------------------------------------- */
-    /*  Invariants – replace `echidna_dummy` with real ones when ready        */
-    /* ---------------------------------------------------------------------- */
-    function echidna_dummy() external pure returns (bool) {
-        return true;
+    /* always‑true placeholder – replace with real invariants later */
+    function echidna_dummy() external view returns (bool) {
+        return address(acc) != address(0);
     }
-}
-
-/**
- * The production CSAccounting queries LidoLocator for various component
- * addresses.  This tiny stub satisfies those calls with distinct throw‑away
- * addresses so the constructor cannot revert during fuzzing.
- */
-contract DummyLocator {
-    function lido()            external pure returns (address) { return address(0x0000000000000000000000000000000000000100); }
-    function stakingRouter()   external pure returns (address) { return address(0x0000000000000000000000000000000000000200); }
-    function withdrawalQueue() external pure returns (address) { return address(0x0000000000000000000000000000000000000300); }
-    function burner()          external pure returns (address) { return address(0x0000000000000000000000000000000000000400); }
-    function wstETH()          external pure returns (address) { return address(0x0000000000000000000000000000000000000500); }
-    function elRewardsVault()  external pure returns (address) { return address(0x0000000000000000000000000000000000000600); }
 }

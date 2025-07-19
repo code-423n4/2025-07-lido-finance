@@ -1,5 +1,5 @@
 ########################################
-# Dummy addresses for Forge linkage
+# Dummy libraries — array form
 ########################################
 [profile.default]
 libraries = [

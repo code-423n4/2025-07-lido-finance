@@ -1,37 +1,49 @@
-// SPDX-License-Identifier: GPL‑3.0
+// SPDX-License-Identifier: GPL-3.0-only
 pragma solidity 0.8.24;
 
 import "./CSAccounting.sol";
 
 /* -------------------------------------------------------------------------- */
-/*                             MIN‑STUB LIDO LOCATOR                          */
-/*   – deterministic, non‑zero addresses so the CSAccounting ctor never reverts */
-contract DummyLocator {
-    function lido()            external pure returns (address) { return address(0x00000000000000000000000000000000DeAD0001); }
-    function wstETH()          external pure returns (address) { return address(0x00000000000000000000000000000000DeAD0002); }
-    function withdrawalQueue() external pure returns (address) { return address(0x00000000000000000000000000000000DeAD0003); }
-    function burner()          external pure returns (address) { return address(0x00000000000000000000000000000000DeAD0004); }
-    function elRewardsVault()  external pure returns (address) { return address(0x00000000000000000000000000000000DeAD0005); }
+/*  Minimal ERC20 stub – just enough for CSAccounting                          */
+/* -------------------------------------------------------------------------- */
+contract DummyLido {
+    function approve(address, uint256) external pure returns (bool) { return true; }
+    function allowance(address, address) external pure returns (uint256) { return type(uint256).max; }
+    function sharesOf(address) external pure returns (uint256) { return 0; }
+    function permit(
+        address, address, uint256, uint256, uint8, bytes32, bytes32
+    ) external pure {}
 }
 
 /* -------------------------------------------------------------------------- */
-/*                       SIMPLE HARNESS –  one dummy invariant                */
+/*  Locator stub – deterministic, non‑zero addresses                          */
+/* -------------------------------------------------------------------------- */
+contract DummyLocator {
+    DummyLido private immutable _lido = new DummyLido();
+    function lido()            external view returns (address) { return address(_lido);     }
+    function wstETH()          external pure returns (address) { return address(0xDeaD0002); }
+    function withdrawalQueue() external pure returns (address) { return address(0xDeaD0003); }
+    function burner()          external pure returns (address) { return address(0xDeaD0004); }
+    function elRewardsVault()  external pure returns (address) { return address(0xDeaD0005); }
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Echidna harness with one always‑true invariant                            */
 /* -------------------------------------------------------------------------- */
 contract Echidna_Accounting_Invariants {
     CSAccounting public acc;
 
     constructor() payable {
         acc = new CSAccounting(
-            address(new DummyLocator()),
-            address(0x0001),
-            address(0x0002),
-            1 days,
-            30 days
+            address(new DummyLocator()),   // locator
+            address(0x0001),               // dummy Staking‑Module
+            address(0x0002),               // dummy Fee‑Distributor
+            1 days,                        // min lock
+            30 days                        // max lock
         );
     }
 
-    /* always‑true placeholder – replace with real invariants later */
-    function echidna_dummy() external view returns (bool) {
-        return address(acc) != address(0);
+    function echidna_dummy() external view returns (bool ok) {
+        ok = address(acc) != address(0);
     }
 }

@@ -1,7 +1,9 @@
-########################################
-# Dummy libraries — array form
-########################################
 [profile.default]
+src  = "src"
+out  = "out"
+libs = ["lib"]
+
+# dummy addresses for the three project libraries + __main__
 libraries = [
   "src/lib/AssetRecovererLib.sol:AssetRecovererLib:0x1000000000000000000000000000000000000000",
   "src/lib/NOAddresses.sol:NOAddresses:0x2000000000000000000000000000000000000000",

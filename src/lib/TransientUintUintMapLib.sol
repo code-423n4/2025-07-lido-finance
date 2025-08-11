@@ -28,13 +28,11 @@ library TransientUintUintMapLib {
         uint256 key,
         uint256 value
     ) internal {
-        uint256 slot = _slot(self, key);
-        assembly ("memory-safe") {
-            let v := tload(slot)
-            // NOTE: Here's no overflow check.
-            v := add(v, value)
-            tstore(slot, v)
-        }
+        // Make addition safe: revert on overflow rather than wrapping.
+        // The previous implementation explicitly skipped overflow checks.
+        uint256 current = get(self, key);
+        uint256 newValue = current + value; // will revert on overflow in Solidity 0.8+
+        set(self, key, newValue);
     }
 
     function set(

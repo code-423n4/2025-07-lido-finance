@@ -1,0 +1,62 @@
+==============================================================
+Guild: Code4rena
+Channel: ARCHIVE-PUBLIC / lidofinance-jul
+==============================================================
+
+[07/14/2025 21:29] itsmetechjay (pinned)
+👋 Hello and welcome to the $103,500 in USDC Lido Finance audit channel!
+
+📆 Audit opens Wednesday, 16 July 2025 20:00 (20:00 UTC) and runs through Monday, 11 August 2025 20:00 (20:00 UTC) (26 days).
+
+Please give a warm welcome to the Lido Finance team, particularly @dmitryc and @dgusakov, who will be available for questions via a PRIVATE thread in the CET timezone. 
+
+**❗A coded, runnable PoC is required for all High/Medium submissions to this audit.**
+- The audit repo includes a basic PoC template to run the test suite.
+- PoCs **must** use the test suite provided in the audit repo.
+- Your submission will be marked as `Insufficient` if the POC is not runnable and working with the provided test suite.
+- Exception: PoC is optional (though recommended) for wardens with signal ≥ 0.68
+
+🤖 **Documentation bot assistance:** For general questions about the codebase, give our documentation bot a try, by tagging `@Docs Wolf` in any thread (private or public) and asking your question. The bot will make its best attempt to answer based on the codebase and documentation, and link you to relevant resources. *Docs Wolf will be available when the audit is live.*
+
+We'll be posting relevant links, documentation, etc. here, so if you intend to participate in this audit, consider enabling notifications for this channel. 🐺 ⏰
+
+Audit Page: https://code4rena.com/audits/2025-07-lido-finance
+
+{Reactions}
+👍 (13) c4ship (8) ❤️ (5) 
+
+[07/14/2025 21:29] itsmetechjay
+Pinned a message.
+
+
+[08/25/2025 16:41] itsmetechjay
+🤑 🎉  Awards for **Lido Finance**:
+
+$1,894.74 USDC » @won
+$1,263.16 USDC » @K42 Ψ
+$842.11 USDC » @0xAura
+
+🏁 Findings summary
+--------------------------------------—
+0 High risk findings
+0 Med risk findings
+1,127 wardens participated
+
+Top QA report: won
+
+Awards will be distributed on Ethereum within the next week. Congratulations all!  💸 💸 💸
+
+{Reactions}
+c4ship (6) c4wins (5) 👽 (2) 🔥 (3) clapping (6) 😂 
+
+[10/01/2025 16:15] C4
+ℹ️ This channel is pending archive.   As a result, any private threads will be permanently deleted 10/10/2025 16:09. Please make sure to grab anything you might need before then.
+
+
+[10/09/2025 20:00] C4
+ℹ️ Reminder: this channel will be deleted after 24 hours.
+
+
+==============================================================
+Exported 5 message(s)
+==============================================================

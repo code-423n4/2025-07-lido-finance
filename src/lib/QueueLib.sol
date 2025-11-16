@@ -93,6 +93,7 @@ using QueueLib for QueueLib.Queue;
 interface IQueueLib {
     error QueueIsEmpty();
     error QueueLookupNoLimit();
+    error QueueInvariantBroken();
 }
 
 /// @author madlabman
@@ -162,7 +163,8 @@ library QueueLib {
                     self.queue[indexOfPrev] = prevItem;
                 }
 
-                // We assume that the invariant `enqueuedCount` >= `keys` is kept.
+                // Ensure the invariant `enqueuedCount` >= `keys` is kept to avoid underflow.
+                if (no.enqueuedCount < uint32(item.keys())) revert IQueueLib.QueueInvariantBroken();
                 // NOTE: No need to safe cast due to internal logic.
                 no.enqueuedCount -= uint32(item.keys());
 
